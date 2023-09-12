@@ -24,7 +24,3 @@ This is an interactive presentation graphic built using the [`dmninteractives` Y
 - `dist/*` - All of the above, transpiled
 
 _Important caveat:_ Video, audio and ZIP files are ignored by `git` regardless of where they're saved. You'll need to manually alter the [`.gitignore`](.gitignore) file to have them committed to Github.
-
-## Copyright
-
-&copy;2018 The Dallas Morning News
