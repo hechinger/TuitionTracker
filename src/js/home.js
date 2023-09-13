@@ -1,8 +1,8 @@
 import './jquery-ui.min';
 import './fm.tagator.jquery';
 import social from '../js/social.js';
-import firebase from 'firebase/app';
-import 'firebase/database'
+// import firebase from 'firebase/app';
+// import 'firebase/database'
 
 // Initialize Firebase
 var config = {
@@ -13,7 +13,7 @@ var config = {
   storageBucket: "newagent-50447.appspot.com",
   messagingSenderId: "920466406897"
 };
-firebase.initializeApp(config);
+// firebase.initializeApp(config);
 
 let currentSchool = ''; // school currently selected
 let rawData = []; // container for the raw json data from API (all schools)
@@ -100,9 +100,9 @@ const fetchInitialData = function(){
     printInfoBox(filters);
   });
 }
-const database = firebase.database();
+// const database = firebase.database();
 
-const ref = firebase.database().ref('searches');
+// const ref = firebase.database().ref('searches');
 
 const registerAllEvents = function(){
   //assign eventHandlers to filter inpunts
