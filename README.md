@@ -1,11 +1,9 @@
-# interactive_tuition-tracker
-
-This is an interactive presentation graphic built using the [`dmninteractives` Yeoman generator](https://github.com/DallasMorningNews/generator-dmninteractives).
+# tuition-tracker
 
 ## Requirements
 
 - Node - `brew install node`
-- Gulp - `npm install -g gulp-cli`
+- Gulp - `npm install -g gulp gulp-cli`
 
 ## Local development
 
