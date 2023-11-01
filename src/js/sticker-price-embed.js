@@ -5,7 +5,7 @@ import tooltip from './tooltip';
 
 export function findData(price, selectedNetPrice){
   // Determine which variable to port in from the school's JSON file
-  let chartablePrice = price.yearly_data.slice(0, 11).reverse();
+  let chartablePrice = price.yearly_data.slice(0, 9).reverse();
 
   let schoolString;
   let schoolPrice;
@@ -14,8 +14,11 @@ export function findData(price, selectedNetPrice){
 
   // const { schoolNyetPriceA, schoolNyetPriceB, schoolNyetPriceC, schoolNyetPriceD, schoolNyetPriceE } = schoolPrices;
 
+  if (price.control === 1){
     schoolString = "public"
-
+  } else {
+    schoolString = "privateforprofit"
+  }
 
   if (selectedNetPrice === 1){
     schoolPrice = "0_30000"
@@ -31,38 +34,34 @@ export function findData(price, selectedNetPrice){
 
   const priceData = chartablePrice.map(year => {
       // Determine most complete trend between on- and off-campus
-      let stickerPriceType = 'price_instate_oncampus';
-      let campusFlag = 'campus';
+      let stickerPriceType;
       let onCampusCount = 0;
       let offCampusCount = 0;
-      for (let priceYear in chartablePrice) {
-        if (chartablePrice[priceYear].price_instate_oncampus > 1) {
-          onCampusCount += 1;
+
+      for (var entry in price.yearly_data) {
+        if (price.yearly_data[entry].price_instate_oncampus === null || price.yearly_data[entry].price_instate_oncampus === 0){
+          offCampusCount += 1
         }
-        if (chartablePrice[priceYear].price_instate_offcampus_nofamily > 1) {
-          offCampusCount += 1;
+        if (price.yearly_data[entry].price_instate_offcampus_nofamily === null || price.yearly_data[entry].price_instate_offcampus_nofamily === 0){
+          onCampusCount += 1
         }
       }
-
-      if (offCampusCount > onCampusCount + 1) {
+      if (offCampusCount >= onCampusCount) {
         stickerPriceType = 'price_instate_offcampus_nofamily'
-        campusFlag = 'offcampus'
-      } 
+      } else {
+        stickerPriceType = 'price_instate_oncampus'
+      }
+
       const thisYear = {
         'timescale': year.year,
         'stickerPrice': year[`${stickerPriceType}`],
         'stickerPriceType': stickerPriceType,
-        'nyetPriceA': year[`avg_net_price_0_30000_titleiv_privateforprofit`],
-        'nyetPriceB': year[`avg_net_price_30001_48000_titleiv_privateforprofit`],
-        'nyetPriceC': year[`avg_net_price_48001_75000_titleiv_privateforprofit`],
-        'nyetPriceD': year[`avg_net_price_75001_110000_titleiv_privateforprofit`],
-        'nyetPriceE': year[`avg_net_price_110001_titleiv_privateforprofit`],
-        'netPrice': year[`avg_net_price_${schoolPrice}_titleiv_privateforprofit`],
-        'rangeA': year[`min_max_diff_0_30000_titleiv_privateforprofit_${campusFlag}`],
-        'rangeB': year[`min_max_diff_30001_48000_titleiv_privateforprofit_${campusFlag}`],
-        'rangeC': year[`min_max_diff_48001_75000_titleiv_privateforprofit_${campusFlag}`],
-        'rangeD': year[`min_max_diff_75001_110000_titleiv_privateforprofit_${campusFlag}`],
-        'rangeE': year[`min_max_diff_110001_titleiv_privateforprofit_${campusFlag}`]
+        'nyetPriceA': year[`avg_net_price_0_30000_titleiv_${schoolString}`],
+        'nyetPriceB': year[`avg_net_price_30001_48000_titleiv_${schoolString}`],
+        'nyetPriceC': year[`avg_net_price_48001_75000_titleiv_${schoolString}`],
+        'nyetPriceD': year[`avg_net_price_75001_110000_titleiv_${schoolString}`],
+        'nyetPriceE': year[`avg_net_price_110001_titleiv_${schoolString}`],
+        'netPrice': year[`avg_net_price_${schoolPrice}_titleiv_${schoolString}`]
       }
       return thisYear;
   });
@@ -78,40 +77,14 @@ function isitChartable(data){
   }
 }
 
-function isFreezeOrReset(data){
-
-  let freeze = false
-  let reset = false
-  for(var i = 1; i < data.length; i++){
-    if (data[i].stickerPrice == data[i-1].stickerPrice) {
-      freeze = true
-    }
-     if (data[i].stickerPrice <= data[i-1].stickerPrice * .9) {
-      reset = true
-    }
-  }
-  if (reset == true) {
-    return "reset"
-  } else if (freeze == true ) {
-    return "freeze"
-  } else {
-    return ""
-  }
-  
-}
 
 export function runData(datafile) {
   const chartable = isitChartable(datafile);
-  const freezeOrReset = isFreezeOrReset(datafile);
+
   if (!chartable) {
     $('#sticker-price-container').hide();
   }
 
-  if (freezeOrReset == "freeze") {
-    $('.freeze').addClass("displayed")
-  } else if (freezeOrReset == "reset") {
-    $('.reset').addClass("displayed");
-  } 
 
  // responsiveness
  let window_width = $(window).width();
@@ -122,88 +95,36 @@ export function runData(datafile) {
    fullWidth = 600;
    fullHeight = 400;
  } else if (window_width <= 350) {
-   fullWidth = 200;
+   fullWidth = 300;
    fullHeight = 290;
  } else {
-   fullWidth = window_width - 180;
+   fullWidth = window_width - 50;
    fullHeight = fullWidth - 150;
  }
 
  const commas = d3.format(',');
 
  // set the dimensions and margins of the graph
- const margin = { top: 20, right: 20, bottom: 30, left: 50 };
- const svg = d3.select('#sticker-price-chart');
- const width = fullWidth - margin.left - margin.right;
- const height = $('#sticker-price-chart').height() - margin.top - margin.bottom;
+ const margin = { top: 10, right: 10, bottom: 20, left: 50 };
+ const svg = d3.select('#sticker-price-chart-embed');
+ const width = $('#sticker-price-chart-embed').width() - margin.left - margin.right;
+ const height = $('#sticker-price-chart-embed').height() - margin.top - margin.bottom;
+ const g = svg.append("g")
+   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  // set the ranges
+ // set the ranges
  const x = d3.scaleBand().rangeRound([0, width]).padding(1),
      y = d3.scaleLinear().rangeRound([height, 0]),
      z = d3.scaleOrdinal(['#036888','#D2392A','#D2392A','#D2392A']);
-
- const nx = d3.scaleBand().rangeRound([0, width]).padding(1),
-     ny = d3.scaleLinear().rangeRound([height, 0]);
-
- var svgDefs = svg.append('defs');
-
- var mainGradient = svgDefs.append('linearGradient')
-    .attr('id', 'mainGradient');
-
-// Create the stops of the main gradient. Each stop will be assigned
-// a class to style the stop using CSS.
- mainGradient.append('stop')
-    .attr('class', 'stop-left')
-    .attr('offset', '.85');
-
- mainGradient.append('stop')
-    .attr('class', 'stop-right')
-    .attr('offset', '1');
-
- const g = svg.append("g")
-   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
  // define the line
  const line = d3.line()
    .x(function(d) { return x(d.timescale); })
    .y(function(d) { return y(d.total); });
- 
-
- // TKTK here's what you update when you're done with the data
- const area = d3.area()
-   .x(function(d) { 
-      if (d.timescale == "23-24") {
-        return x(d.timescale) + 18; 
-      } else {
-        return x(d.timescale); 
-      }
-    })
-   .y1(function(d) { 
-    if (d.timescale == "19-20" || d.timescale == "20-21") {
-      return y(+d.total)
-    } else {
-      if (d.range == undefined || Array.isArray(d.range) == false) {
-       return y(+d.total)
-      } else 
-        console.log(d)
-        return y((+d.range[1] * +d.sticker)) 
-    }
-    })
-   .y0(function(d) { 
-    if (d.timescale == "19-20" || d.timescale == "20-21") {
-      return y(+d.total)
-    } else {
-      if (d.range == undefined || Array.isArray(d.range) == false) {
-       return y(+d.total)
-      } else 
-        return y((+d.range[0] * +d.sticker))
-    }
-    })
-   .curve(d3.curveNatural)
 
  // scale the range of the priceData
  z.domain(d3.keys(datafile[0]).filter(function(key) {
-   return key !== "timescale" && key[0] !== "r";
+   return key !== "timescale";
  }));
 
  const trends = z.domain().map(function(name) {
@@ -212,19 +133,16 @@ export function runData(datafile) {
      values: datafile.map(function(d) {
        return {
          timescale: d.timescale,
-         total: +d[name],
-         sticker:d["stickerPrice"],
-         range: d[name.replace("nyetPrice","range")]
+         total: +d[name]
        };
      })
    };
  });
 
- nx.domain(datafile.map(d => d.timescale));
-
- ny.domain([0, d3.max(trends, function(c) {
+ x.domain(datafile.map(d => d.timescale));
+ y.domain([0, d3.max(trends, function(c) {
                                return d3.max(c.values, function(v) {return v.total;});
-                             }) + 500
+                             })
           ]).nice();
 
   const newTrends = trends.map((rate) => {
@@ -235,7 +153,7 @@ export function runData(datafile) {
   x.domain(newTrends[0].values.map(d => d.timescale));
   y.domain([0, d3.max(newTrends, function(c) {
     return d3.max(c.values, function(v) {
-      return v.total * 1.1;
+      return v.total;
     });
   })]);
 
@@ -263,8 +181,6 @@ export function runData(datafile) {
           return 3;
         }
       })
-
-
 
 
  // Draw the empty value for every point
@@ -307,32 +223,10 @@ export function runData(datafile) {
    .enter()
    .append("circle")
    .attr("r", 3)
-   .attr("opacity", function() { 
-      if ($(window).width() <= 360) {
-        return 0;
-      } else {
-        return 1;
-      } 
-    })
    .style("stroke-width", 3)
    .attr("cx", function(d) { 
     return x(d.timescale); })
    .attr("cy", function(d) { return y(d.total); });
-
- trend.append("path")
-   .attr("class", "area")
-   .attr("d", (d) => {
-     let keepValues = [];
-     for(var i = 6; i < d.values.length; i++){
-       if (d.values[i].total){
-         keepValues.push(d.values[i]);
-       } 
-     }
-      return area(keepValues); 
-   })
-   .attr("display", ()=>{
-    if return "none"
-   })
 
  // Draw the axis
  g.append("g")
@@ -348,12 +242,7 @@ export function runData(datafile) {
              return `$${commas(d)}`
             })
          );
- g.append("text")
-  .classed("label-projected", true)
-  .attr("y", height - 10)
-  .attr("x", width - 5)
-  .attr("text-anchor", "end")
-  .text("Net Price Projected")
+
 
  const focus = g.append('g')
    .attr('class', 'focus')
@@ -373,19 +262,20 @@ export function runData(datafile) {
    .on("mouseout", mouseout)
    .on("mousemove", mousemove);
 
+
  const timeScales = datafile.map(function(name) { return x(name.timescale); });
 
  function mouseover() {
    focus.style("display", null);
-   d3.selectAll('#sticker-price-chart .points text').style("display", null);
+   d3.selectAll('#sticker-price-chart-embed .points text').style("display", null);
  }
  function mouseout() {
    focus.style("display", "none");
-   d3.selectAll('#sticker-price-chart .points text').style("display", "none");
+   d3.selectAll('#sticker-price-chart-embed .points text').style("display", "none");
  }
  // TOOLTIP
  function mousemove() {
-   tooltip('#sticker-price-chart', this, timeScales, datafile, x, y, z, focus);
+   tooltip('#sticker-price-chart-embed', this, timeScales, datafile, x, y, z, focus);
  }
 
  } // end rundata
