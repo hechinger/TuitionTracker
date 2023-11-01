@@ -9995,6 +9995,26 @@ input:-webkit-autofill:focus {
       width:600px!important;
   }
 }
+@media (max-width: 500px) {
+  /* line 48, ../scss/components/_promo.scss */
+  .promo-signup-inner {
+    padding: 35px 50px;
+  }
+  .promo-mod {
+      width:450px!important;
+      margin-top:80px;
+  }
+}
+@media (max-width: 400px) {
+  /* line 48, ../scss/components/_promo.scss */
+  .promo-signup-inner {
+    padding: 35px 50px;
+  }
+  .promo-mod {
+      width:350px!important;
+      margin-top:100px;
+  }
+}
 
 /* line 66, ../scss/components/_promo.scss */
 .promo-content-bdr:after,
