@@ -3,7 +3,8 @@
 'use strict';
 
 /* eslint-enable strict */
-const sass = require('gulp-sass')(require('sass'));
+const sass = require('gulp-sass');
+sass.compiler = require('node-sass')
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 
