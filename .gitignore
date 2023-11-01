@@ -187,3 +187,5 @@ src/assets/*
 
 # .gitkeeps (used by some subgenerators)
 !src/assets/.gitkeep
+
+src/data/school-data-09042019
