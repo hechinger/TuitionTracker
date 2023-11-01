@@ -22,7 +22,8 @@ let schoolNames = []; // used for the autocomplete (check getSchoolNames)
 let filteredItems = []; // container of all the schools matching current filter, thus being shown
 let listLength; // Used to determine what error messages to throw for dummies searching
 let states = []; // Used to add multiple states to the search
-const schoolUrl = `school.html?unitid=`; //template for endpoint for individual school detail info
+let version = Math.floor(Math.random() * 10000)
+const schoolUrl = `school.html?v=`+version+`&unitid=`; //template for endpoint for individual school detail info
 
 // caching HTML elements so we don't have to traverse the dom every time
 const errorMessage = $('#progress-box .error, #progress-box-mobile .error'); //error message modal
