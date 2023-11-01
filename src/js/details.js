@@ -25,7 +25,9 @@ const addCommas = d3.format(',');
 // Find page URL
 const pageUrl = window.location;
 
-let pageUnitid = pageUrl.href.split('=')[1];
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+let pageUnitid = urlParams.get('unitid')
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -255,6 +257,19 @@ if (pageUnitid) {
 
   if (returnedStickerValue === '$0' || returnedStickerValue === '$NaN'){
     $('#sticker-price').text('No data')
+  }
+
+  if (data.institution == "The Pennsylvania State University"){
+    $('#price .fine-print').text('');
+    $('#price .fine-print').append('<p>The Pennsylvania State University changed the way it reported information to the federal government in 2019-20. That year, it began reporting system wide data rather than breaking things down for each individual campus. Without more previous years of data, we can\'t project future costs of attendance for the university system.</p>');
+    $('#price .fine-print').css('width', 'auto');
+    $('#price .fine-print p').css('text-transform', 'none')
+    $('#price .price-header').hide();
+    $('#price #sticker-price').hide();
+    $('#school-well .promo-mod').removeClass('promo-content-bdr');
+    $('#net-price').hide();
+    $('.how-we-know').hide();
+
   }
 
 
