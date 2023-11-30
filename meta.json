@@ -5,8 +5,8 @@
   "shareTitle": "Tuition Tracker",
   "shareText": "How much will college really cost? Find out with Tuition Tracker, from @hechingerreport, @EdWriters and",
   "tweetText": "<Text>",
-  "publishYear": 2018,
-  "publishDate": "2018-04-30T00:00:00Z",
+  "publishYear": 2023,
+  "publishDate": "2023-11-28T00:00:00Z",
   "url": "http://www.tuitiontracker.org",
   "authors": [
     "Peter D'Amato"
@@ -14,20 +14,6 @@
   "desk": "<Desk>",
   "section": "<Section>",
   "keywords": [
-    "hechinger",
-    "hechinger report", 
-    "education reporting",
-    "interactives",
-    "dallas",
-    "dallas news",
-    "dfw news",
-    "dallas newspaper",
-    "dallas morning news",
-    "dallas morning news newspaper",
-    "hechinger report",
-    "education journalism", 
-    "edtech",
-    "education reporting",
     "college tuition", 
     "college costs",
     "how much will college cost"
@@ -35,7 +21,7 @@
   "imgURL": "http://www.tuitiontracker.org/images/tuitiontracker.gif",
   "imgWidth": "596",
   "imgHeight": "345",
-  "sectionTwitter": "dallasnews",
-  "authorTwitter": "dallasnews",
+  "sectionTwitter": "hechingerreport",
+  "authorTwitter": "hechingerreport",
   "authorFBProfile": "https://www.facebook.com/hechingerreport/"
 }
