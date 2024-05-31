@@ -198,8 +198,8 @@
                     <div class="mobile-stats-info" id="mobile-stats-type"><i id="diploma-icon-big" class="fas fa-graduation-cap fa-3x"></i><span id="mobile-stats-control"></span></div>
                     <div class="mobile-stats-info" id="mobile-stats-degree"><span><strong></strong></span>year</div>
                     <div class="mobile-stats-info" id="mobile-stats-hbcu">Historically Black College/Univ. (HBCU) <br/><span></span></div>
-                    <div class="mobile-stats-info" id="mobile-stats-acc-rate"><span>--</span>Acceptance rate (2021)</div>
-                    <div class="mobile-stats-info" id="mobile-stats-sticker"><span>--</span>Pay sticker price (2020)</div>
+                    <div class="mobile-stats-info" id="mobile-stats-acc-rate"><span>--</span>Acceptance rate (2022)</div>
+                    <div class="mobile-stats-info" id="mobile-stats-sticker"><span>--</span>Pay sticker price (2021)</div>
                     <div style="display:none;" class="mobile-stats-info" id="mobile-stats-debt-warning"><div><i id="diploma-icon-big" class="fas fa-dollar-sign fa-3x"></i></div><div>High debt</div></div>
                   </div>
               </div>
@@ -214,14 +214,14 @@
               <div class="promo-signup-inner">
                 <div class="promo-hdr">
                     <div id="price">
-                      <div class="price-header">Sticker price (2023-24)</div>
+                      <div class="price-header">Sticker price (2024-25)</div>
                           <div class="price-label" id="sticker-price"></div>
                           <div class="fine-print">What we project the school will advertise as the cost of attendance for living 
                             <span id="sticker-living"></span> 
                           </div>
                     </div>
                     <div id="net-price">
-                      <div class="price-header">Net price (2023-24)</div>
+                      <div class="price-header">Net price (2024-25)</div>
                       <div class="price-label" id="calculated-net-price"></div>
                       <div class="fine-print">What we project students in the <span id="bracket" class="net-span">--</span> income bracket will actually pay</div>
                     </div>
@@ -278,7 +278,7 @@
             <svg id="sticker-price-chart"></svg>
             <div class="freeze"><div class="freeze-flag">FREEZE</div><div>This institution has frozen tuition at some point in the past decade, making it harder to predict price trends. Forecast may differ from final price.</div></div>
             <div class="reset"><div class="reset-flag">RESET</div><div>This institution significantly dropped tuition at some point in the past decade, making it harder to predict price trends. Forecast may differ from final price.</div></div>
-            <p class="note">Historical sticker-price data up to 2021-22 and net price up to 2020-21 provided by NCES. Data for following years projected from Hechinger Report analyses. Shaded area calculated using highest and lowest historical discount rate for average incoming freshman in income level.</p>
+            <p class="note">Historical sticker-price data up to 2022-23 and net price up to 2021-22 provided by NCES. Data for following years projected from Hechinger Report analyses. Shaded area calculated using highest and lowest historical discount rate for average incoming freshman in income level. In-state tuition figures are used.</p>
           </div>
           <!-- <div class="no-data-placeholder" id="sticker-price-placeholder">No data available for school</div> -->
         </section>
@@ -348,7 +348,7 @@
 
           <header class="section-header">Graduation rates by race</header>
 
-          <p class="tagline">Rate of students who earn a bachelor’s degree within six years of starting or an associate degree within three years. Five-year averages.</p>
+          <p class="tagline">Rate of students who earn a bachelor’s degree within six years of starting or an associate degree within three years over the last five years.</p>
 
           <section class="graphic">
             <div class="chart" id="grad-rates-container">
@@ -365,7 +365,7 @@
       <div id="retention-rates">
 
          <header class="section-header">Retention rates by type</header>
-         <p class="tagline">Percentage of freshmen at four-year colleges who returned the following fall or, at two-year colleges, who completed their credentials or returned after one year. Five-year averages.</p>
+         <p class="tagline">Percentage of freshmen at four-year colleges who returned the following fall or, at two-year colleges, who completed their credentials or returned after one year over the last five years.</p>
 
          <section class="graphic" id="retention-container">
            <div class="chart" id="retention-rates-container">
@@ -422,7 +422,7 @@
      <div id="demographics">
 
          <div class="cost-header"><div>Demographics</div></div><br/>
-         <header class="section-header">Enrollment (2021)</header>
+         <header class="section-header">Enrollment (2021-22)</header>
          <div class="enrollment-stats-container">
            <div class="tagline enrollment-stat ft-enrollment">Total undergraduate enrollment:&nbsp; <span class="info"></span></div>
          </div>
@@ -434,7 +434,15 @@
            </div>
         </div>
 
+        <section class="graphic" id="gender-container" hidden>
+          <p class="tagline">Enrollment by gender</p>
+          <div class="chart" id="gender-container">
+             <svg id="gender-chart"></svg>
+           </div>
+        </section>
+
          <section class="graphic" id="demo-container">
+          <p class="tagline" id="race-tagline" hidden>Enrollment by race</p>
            <div class="chart" id="demographics-container">
               <svg id="demographics-chart"></svg>
             </div>

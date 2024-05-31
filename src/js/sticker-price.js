@@ -174,14 +174,14 @@ export function runData(datafile) {
  
  const area = d3.area()
    .x(function(d) { 
-      if (d.timescale == "23-24") {
+      if (d.timescale == "24-25") {
         return x(d.timescale) + 18; 
       } else {
         return x(d.timescale); 
       }
     })
    .y1(function(d) { 
-    if (d.timescale == "16-17" || d.timescale == "13-14" || d.timescale == "15-16" || d.timescale == "14-15" || d.timescale == "18-19" || d.timescale == "17-18" || d.timescale == "19-20" || d.timescale == "20-21") {
+    if (d.timescale == "16-17" || d.timescale == "13-14" || d.timescale == "15-16" || d.timescale == "14-15" || d.timescale == "18-19" || d.timescale == "17-18" || d.timescale == "19-20" || d.timescale == "20-21" || d.timescale == "21-22") {
       return y(d.total)
     } else { 
       if (Array.isArray(d.range) && d.range[1] !== undefined) {
@@ -192,7 +192,7 @@ export function runData(datafile) {
      }
     })
    .y0(function(d) { 
-    if (d.timescale == "16-17" || d.timescale == "13-14" || d.timescale == "15-16" || d.timescale == "14-15" || d.timescale == "18-19" || d.timescale == "17-18" || d.timescale == "19-20" || d.timescale == "20-21") {
+    if (d.timescale == "16-17" || d.timescale == "13-14" || d.timescale == "15-16" || d.timescale == "14-15" || d.timescale == "18-19" || d.timescale == "17-18" || d.timescale == "19-20" || d.timescale == "20-21" || d.timescale == "21-22") {
       return y(d.total)
     } else { 
          if (Array.isArray(d.range) && d.range[0] !== undefined) { 

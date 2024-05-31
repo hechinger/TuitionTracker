@@ -2,7 +2,7 @@ import $ from 'jquery';
 import * as d3 from 'd3';
 import tooltip from './tooltip';
 
-const nationalAverage = [[80.87,48.78],[61.94,43.52]]
+const nationalAverage = [[71.85,45.84],[62.60,43.60]]
 export function findData(retention, radioValue){
 // Detrermine which variable to port in from the school's JSON file
 
@@ -10,7 +10,6 @@ let retentionData;
 let chartableRetention = retention.yearly_data.slice(1, 10).reverse();
 if (retention.level === 4 || retention.level === 5 || retention.level === 6){
   retentionData = chartableRetention.map(year => {
-    console.log(year)
     $('#retention-placeholder').hide();
     const thisYear = {
       'sector':1,
@@ -23,7 +22,6 @@ if (retention.level === 4 || retention.level === 5 || retention.level === 6){
   });
   } else {
     retentionData = chartableRetention.map(year => {
-      console.log(year)
     $('#retention-placeholder').hide();
     const thisYear = {
       'sector':0,

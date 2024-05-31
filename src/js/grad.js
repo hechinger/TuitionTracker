@@ -8,7 +8,9 @@ import { clampIndex } from './utils';
 var readableRacePool = ['TOTAL'];
 // our minimum enrollment percentage to include races in the graduation rate chart
 const minEnrollment = 4.51;
-let nationalAverage = [[59.16, 35.57, 74.03, 39.17, 52.66, 47.46, 63.62, 53.78, 49.42, 49.42],[29.03, 22.50, 37.71, 20.36, 25.30, 22.71, 32.81, 25.14,28.90, 28.90]];
+// total, amerindalasknat, asian, 'black', 'hisp', 'nathawpacisl', 'white','twomore', 'unknown']
+let nationalAverage = [[51.63, 42.67, 56.77, 40.36, 47.90, 46.56, 54.39, 47.00, 49.01, 55.56],
+                       [41.87, 32.44, 47.27, 30.08, 39.87, 33.67, 45.10, 35.05, 37.37, 40.31]];
 
 export function findData(grad, degreetype){
 
@@ -216,7 +218,6 @@ group.append("text")
         .attr("x", 0)
         .attr("y", 17)
         .text(function(d, i) { 
-          console.log(d)
           if (d.value == null || isNaN(d.value)) {
             return "N/A"
           } else {

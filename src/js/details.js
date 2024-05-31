@@ -9,6 +9,7 @@ import demographics from './demographics';
 import aid from './aid';
 import price from './sticker-price';
 import priceEmbed from './sticker-price-embed';
+import gender from './gender';
 
 let data;
 let selectedPriceYear;
@@ -57,10 +58,10 @@ if (getCookie('income')) {
 } else {
   setCookie('income', '1', 1)
 }
-
+let v = Math.floor(Math.random() * 10000)
 if (pageUnitid) {
-  $.getJSON(`./data/school-data-09042019/${pageUnitid}.json`, (data) => {
-  // SIDEBAR SCHOOL INFO
+  $.getJSON(`./data/school-data-2024-04/${pageUnitid}.json?v=${v}`, (data) => {
+    // SIDEBAR SCHOOL INFO
   var site = "http://" + data.website;
 
   selectedIncomeYear = 0;
@@ -194,15 +195,13 @@ if (pageUnitid) {
       } else {
         $('#stats-tribal, #mobile-stats-tribal').hide();
       }
-
   if (data.enrollment.perc_admitted === null || data.enrollment.perc_admitted == 1){
     $('#stats-acc-rate span, #mobile-stats-acc-rate span').html('N/A');
-    } else {
-      $('#stats-acc-rate span, #mobile-stats-acc-rate span').html(Math.round(data.enrollment.perc_admitted*100)+'%');
+  } else {
+    $('#stats-acc-rate span, #mobile-stats-acc-rate span').html(Math.round(data.enrollment.perc_admitted*100)+'%');
   }
 
   if (data.enrollment.perc_sticker === null || data.enrollment.perc_sticker == 1){
-    console.log(data.enrollment)
     $('#stats-sticker span, #mobile-stats-sticker span').html('N/A');
     } else {
       $('#stats-acc-sticker span, #mobile-stats-sticker span').html(Math.round(data.enrollment.perc_sticker*100)+'%');
@@ -277,33 +276,81 @@ if (pageUnitid) {
 
   // Fill and build gender bars
 
-  const malePct = Math.round((data.enrollment.total_men/data.enrollment.total_enrollment)*100);
+  const unknown = data.enrollment.total_genderunknown;
+  console.log(unknown);
+  const another = data.enrollment.total_anothergender;
+  console.log(another);
 
-  const femalePct = Math.round((data.enrollment.total_women/data.enrollment.total_enrollment)*100);
-
-
-  $('#gender-pct-female').attr('data-pct',femalePct);
-  $('#gender-pct-male').attr('data-pct',malePct);
-
-  $("#gender-pct-female").css('width',femalePct+'%');
-  $("#gender-pct-male").css('width',malePct+'%');
-
-  const genderBarMale = parseInt($("#gender-pct-male").attr("data-pct"));
-  const genderBarFemale = parseInt($("#gender-pct-female").attr("data-pct"));
-
-  if (genderBarMale < 5){
-    $("#gender-pct-male").addClass("small-num");
-  } else if (genderBarFemale < 5){
-    $("#gender-pct-female").addClass("small-num");
+  let total_enroll_sum = data.enrollment.total_enrollment;
+  let use_unknown = false;
+  let use_another = false;
+  let gender_totals = []
+  if(unknown != "null" && unknown > 0) {
+    use_unknown = true;
+    total_enroll_sum += unknown;
+    gender_totals['unknown'] = unknown
   }
-  if (genderBarMale > 96){
-    $("#gender-pct-male").addClass("high-pct");
-    $("#gender-pct-female").removeClass("small-num"); 
-    $("#gender-pct-female").addClass("no-num"); 
+
+  if(another != "null" && another > 0) {
+    use_another = true;
+    total_enroll_sum += another;
+    gender_totals['another'] = another
+  }
+
+  gender_totals['female'] = data.enrollment.total_women
+  gender_totals['male'] = data.enrollment.total_men
+  gender_totals['total'] = total_enroll_sum
+
+  const malePct = Math.round((data.enrollment.total_men/total_enroll_sum)*100);
+
+  const femalePct = Math.round((data.enrollment.total_women/total_enroll_sum)*100);
+
+  let unknownPct = 0;
+  let anotherPct = 0;
+
+  if(unknown) {
+    unknownPct = Math.round((unknown/total_enroll_sum)*100);
+  }
+  if(another) {
+    anotherPct = Math.round((another/total_enroll_sum)*100);
+  }
+
+  if(use_unknown) {
+    const genderBarUnknown = parseInt($("#gender-pct-unknown").attr("data-pct"));
+  }
+  if(use_another) {
+    const genderBarAnother = parseInt($("#gender-pct-another").attr("data-pct"));
+  }
+  console.log("use another " + use_another)
+  console.log("use unknown " + use_unknown)
+  if (!use_another && !use_unknown) {
+    console.log("create female/male chart")
+    $('#gender-pct-female').attr('data-pct',femalePct);
+    $('#gender-pct-male').attr('data-pct',malePct);
+    $("#gender-pct-female").css('width',femalePct+'%');
+    $("#gender-pct-male").css('width',malePct+'%');
+
+    const genderBarMale = parseInt($("#gender-pct-male").attr("data-pct"));
+    const genderBarFemale = parseInt($("#gender-pct-female").attr("data-pct"));
+
+    if (genderBarMale < 5){
+      $("#gender-pct-male").addClass("small-num");
+    } else if (genderBarFemale < 5){
+      $("#gender-pct-female").addClass("small-num");
+    }
+    if (genderBarMale > 96){
+      $("#gender-pct-male").addClass("high-pct");
+      $("#gender-pct-female").removeClass("small-num"); 
+      $("#gender-pct-female").addClass("no-num"); 
+    }
+  } else {
+    $('#gender-bars').hide();
+    $('#gender-container').show();
+    $('#race-tagline').show();
   }
   // Fill in enrollment by race bars
 
-  $('.enrollment-stat span').html(addCommas(data.enrollment.total_enrollment));
+  $('.enrollment-stat span').html(addCommas(total_enroll_sum));
 
 
 
@@ -581,6 +628,9 @@ if (pageUnitid) {
         if(window.pageYOffset > document.getElementById("demographics-container").offsetTop - 600) {
             let demographicsDatafile = data.enrollment;
             demographics.runData(demographicsDatafile);
+            if(use_another || use_unknown) {
+              gender.runData(gender_totals)
+            }
         }
 
     });

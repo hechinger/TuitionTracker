@@ -43,7 +43,7 @@ function tooltip(selector, chart, timeScales, chartData, x, y, z, focus, usePct)
               return y(d.values[iClamped].total) + yOffset;
             })
             .attr('text-anchor', (d) =>{
-              if (di.timescale == '17-18') {
+              if (di.timescale == '18-19') {
                 return 'middle'
               } else {
                 return 'start'

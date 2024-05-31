@@ -1104,7 +1104,7 @@ body {
 #intro {
   background-color: #fff;
   min-width: 100%;
-  padding: 40px 0;
+  padding: 5px 0;
   border-top: 4px solid #FFCF31;
 }
 
@@ -1363,8 +1363,22 @@ body {
   opacity:.7;
 }
 
+#announcement {
+  width: 100%;
+  font-size: 1.7rem;
+  font-family: "Tiempos", Georgia, serif;
+  line-height: 1.5;
+  display: inline-block;
+  margin-top: 60px;
+  vertical-align: top;
+  text-align:left;
+  padding: 10px;
+  background-color: #c9c9c9;
+  //border: 2px solid #000;
+}
+
 @media (max-width: 575px) {
-  #deck {
+  #deck, #announcement {
     padding-left: 5%;
   }
 }
