@@ -2,6 +2,12 @@ import $ from 'jquery';
 import * as d3 from 'd3';
 import tooltip from './tooltip';
 
+var language = "english"
+var loc = window.location.pathname
+if (loc.includes('en-espanol')) {
+  language = 'espanol'
+}
+
 const nationalAverage = [[71.85,45.84],[62.60,43.60]]
 export function findData(retention, radioValue){
 // Detrermine which variable to port in from the school's JSON file
@@ -50,6 +56,11 @@ function isitChartable(data){
  let fullHeight;
 
 export function runData(datafile) {
+  var natl_avg_text = "NAT'L AVERAGE"
+  if (language == "espanol") {
+    natl_avg_text = "PROMEDIO NACIONAL"
+  }
+
   const chartable = isitChartable(datafile);
   if (!chartable) {
     $('#retention-container').hide();
@@ -80,8 +91,10 @@ export function runData(datafile) {
             .range([0, chartWidth]);
 
   const globalRetPool = ['ft','pt'];
-  const globalReadableRet = ["FULL-TIME","PART-TIME"];
-
+  var globalReadableRet = ["FULL-TIME","PART-TIME"];
+  if (language == "espanol") {
+    globalReadableRet = ["TIEMPO COMPLETO","TIEMPO PARCIAL"]
+  }
   const retColors = ['#000000','#00aeef'];
 
   let rectangles = globalRetPool.map(function(type) {
@@ -211,35 +224,64 @@ group.append("path")
         })
         .attr("transform", function(d, i) { 
           return "translate(" + x(nationalAverage[datafile[0].sector][i]) + "," + -10 + ") rotate(-60)"; })
-
-    group.append("text")
-        .attr("class", "triangle-label")
-              .attr("height", 70)
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("width", chartWidth)
-        .attr("pointer-events", "none")
-        .attr("transform", function(d, i) { return "translate(" + 10 + "," + -7 + ")"; })
-        .attr("dy", 0)
-        .text((d, i) => { 
-          return "NAT'L AVERAGE"})
-        .attr("font-size", 12)
-        .attr("opacity", 0)
-        .transition()
-        .duration(1050)
-        .ease(d3.easeElastic)
-        .delay(function (d, i) { 
-          return i*40 + 1000; })
-        .attr("opacity", function(d, i) {
-          if (i < 1) {
-            return 1
-          } else {
-            return 0
-          }
-        })
-        .attr("text-anchor", "beginning")
-        .attr("transform", function(d, i) { return "translate(" + (x(nationalAverage[datafile[0].sector][i]) - 105) + "," + -4 + ")"; });
-
+    
+    if (language == "espanol") {
+      group.append("text")
+      .attr("class", "triangle-label")
+            .attr("height", 70)
+      .attr("x", -30)
+      .attr("y", 0)
+      .attr("width", chartWidth)
+      .attr("pointer-events", "none")
+      .attr("transform", function(d, i) { return "translate(" + 10 + "," + -7 + ")"; })
+      .attr("dy", 0)
+      .text((d, i) => { 
+        return natl_avg_text})
+      .attr("font-size", 12)
+      .attr("opacity", 0)
+      .transition()
+      .duration(1050)
+      .ease(d3.easeElastic)
+      .delay(function (d, i) { 
+        return i*40 + 1000; })
+      .attr("opacity", function(d, i) {
+        if (i < 1) {
+          return 1
+        } else {
+          return 0
+        }
+      })
+      .attr("text-anchor", "beginning")
+      .attr("transform", function(d, i) { return "translate(" + (x(nationalAverage[datafile[0].sector][i]) - 105) + "," + -4 + ")"; });
+    } else {
+      group.append("text")
+          .attr("class", "triangle-label")
+                .attr("height", 70)
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("width", chartWidth)
+          .attr("pointer-events", "none")
+          .attr("transform", function(d, i) { return "translate(" + 10 + "," + -7 + ")"; })
+          .attr("dy", 0)
+          .text((d, i) => { 
+            return natl_avg_text})
+          .attr("font-size", 12)
+          .attr("opacity", 0)
+          .transition()
+          .duration(1050)
+          .ease(d3.easeElastic)
+          .delay(function (d, i) { 
+            return i*40 + 1000; })
+          .attr("opacity", function(d, i) {
+            if (i < 1) {
+              return 1
+            } else {
+              return 0
+            }
+          })
+          .attr("text-anchor", "beginning")
+          .attr("transform", function(d, i) { return "translate(" + (x(nationalAverage[datafile[0].sector][i]) - 105) + "," + -4 + ")"; });
+        }
    setTimeout(function() {
     group.on("mouseover", function(d, i) {
         d3.select(".ft").selectAll(".triangle-label,.triangle")

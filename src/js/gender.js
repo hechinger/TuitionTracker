@@ -4,6 +4,12 @@ import * as d3Symbol from 'd3-symbol-extra';
 import { clampIndex } from './utils';
 // import d3Ease from 'd3-ease';
 
+var language = 'english'
+var loc = window.location.pathname
+if (loc.includes('en-espanol')) {
+  language = 'espanol'
+}
+
 export function runData(datafile) {
 
  const commas = d3.format(',');
@@ -13,6 +19,9 @@ export function runData(datafile) {
   let globalGenderPool = ['female', 'male'];
 
   let globalReadableGenders = ["FEMALE", "MALE"];
+  if (language == "espanol") {
+    globalReadableGenders = ["MUJER","HOMBRE"]
+  }
 
   let genderColors = ['#ef00ae', '#00aeef'];
 

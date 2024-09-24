@@ -9,6 +9,12 @@ var readableRacePool = ['TOTAL'];
 // our minimum enrollment percentage to include races in the graduation rate chart
 const minEnrollment = 4.51;
 
+var language = "english"
+var loc = window.location.pathname
+if (loc.includes('en-espanol')) {
+  language = 'espanol'
+}
+
 export function runData(datafile) {
   // const chartable = isitChartable(datafile);
   // if (!chartable) {
@@ -58,8 +64,10 @@ export function runData(datafile) {
 
   const globalRacePool = ['amerindalasknat', 'asian', 'black', 'hisp', 'nathawpacisl', 'white','twomore', 'unknown','nonresident'];
 // global list of readable race names
-const globalReadableRaces = ["AMERICAN INDIAN / ALASKA NATIVE", "ASIAN", "BLACK / AFRICAN AMERICAN", "HISPANIC / LATINO", "NATIVE HAWAIIAN / PACIFIC ISLANDER",  "WHITE","TWO OR MORE RACES", "NO RACE REPORTED","NOT U.S. RESIDENT"];
-
+var globalReadableRaces = ["AMERICAN INDIAN / ALASKA NATIVE", "ASIAN", "BLACK / AFRICAN AMERICAN", "HISPANIC / LATINO", "NATIVE HAWAIIAN / PACIFIC ISLANDER",  "WHITE","TWO OR MORE RACES", "NO RACE REPORTED","NOT U.S. RESIDENT"];
+if (language == "espanol") {
+  globalReadableRaces = ["INDÍGENA DE LAS AMÉRICAS O NATIVA DE ALASKA", "ASIÁTICA", "NEGRA O AFROAMERICANA", "HISPANA/LATINA", "NATIVA HAWAIANA / ISLEÑA DEL PACÍFICO",  "BLANCA","DOS RAZAS O MÁS", "NO RAZA REPORTADA", "NO ES RESIDENTE DE LOS EE.UU."];
+}
   const raceColors = ['#00aeef', '#8531BA', '#E4C16F', '#E46F88','#6FE4CF', '#e9651b','#52b033', 'grey'];
 
   let rectangles = globalRacePool.map(function(race) {

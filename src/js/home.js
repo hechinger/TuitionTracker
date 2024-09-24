@@ -66,6 +66,45 @@ const programArray = ['Agriculture Agriculture Operations and Related Sciences',
                 'Theology and Religious Vocations',
                 'Transportation and Materials Moving',
                 'Visual and Performing Arts']
+const programArrayEs = ['Agricultura Agricultura operaciones y ciencias relacionados',
+                'Arquitectura y servicios relacionados',
+                'Estudios étnicos culturales o de género ',
+                'Biología y ciencias biomédicas',
+                'Negocios, administración, mercadotecnia y servicios de soporte relacionados',
+                'Comunicaciones, periodismo y programas relacionados ',
+                'Tecnologías de comunicaciones/técnicos y servicios de soporte',
+                'iencia de computación e información y servicios de soporte',
+                'Construcción ',
+                'Educación ',
+                'Ingeniería',
+                'Tecnologías de ingeniería y campos de estudio relacionados',
+                'Literatura e idiomas ',
+                'Ciencias de familia y de consumidor/Ciencias humanas',
+                'Literaturas de lenguas extranjeras  y lingüística ',
+                'Profesionales de sanidad y programas relacionados',
+                'Historia',
+                'Seguridad nacional, orden público, servicio de bomberos y servicios de soporte relacionados',
+                'Profesionales jurídicos y estudios de ley',
+                'Artes liberales, estudios generales y humanidades',
+                'Ciencias de biblioteca',
+                'Matemática y estadística',
+                'Tecnologías y técnicas de mecánica y reparación/',
+                'Tecnologías militares y ciencias aplicadas',
+                'Estudios interdisciplinarios ',
+                'Recursos naturales y de conservación',
+                'Estudios de parques de deportes, recreación, ocio, y ejercicio',
+                'Servicios culinario y personal',
+                'Filosofía y estudios religiosos',
+                'Ciencias físicas',
+                'Producción de precisión',
+                'Psicología',
+                'Administración pública y servicios sociales ',
+                'Ciencias tecnologías/técnicos',
+                'Ciencias sociales',
+                'Teología y vocaciones religiosas',
+                'Transportación y movimiento de materiales',
+                'Artes visuales y escénicas'
+]
 //object that will keep the current state of the filters any time filters change
 //starts with every filter as null
 const filters = {
@@ -87,7 +126,7 @@ $(function(){
 });
 
 const fetchInitialData = function(){
-  $.getJSON("./data/form-data.json", (data) => {
+  $.getJSON("/data/form-data.json", (data) => {
     //assign the response object to var rawData
     rawData = data;
     // map all schools for the autocomplete
@@ -282,10 +321,18 @@ function handleTagChange(ev){
   // traverses up the DOM to find which filter this cb belongs to
   var spread = $(cb).val().split(",")
   // console.log(cb, $(cb).val() , filterType)
-  filters.programs = spread
-        .map((cb) => {
-          return programArray.indexOf(cb) + 1
-        })
+  var loc = window.location.pathname
+  if (loc.includes('en-espanol')) {
+    filters.programs = spread
+    .map((cb) => {
+      return programArrayEs.indexOf(cb) + 1
+    })
+  } else {
+    filters.programs = spread
+          .map((cb) => {
+            return programArray.indexOf(cb) + 1
+          })
+  }
   //reconstruct filteredItems to reflect the current filter selections
   runFilters();
 
@@ -548,47 +595,92 @@ $(function () {
   $activate_tagator1.trigger('click');
 });
 
-$('#input_tagator1').tagator({
-  autocomplete: ['Agriculture Agriculture Operations and Related Sciences',
-                'Architecture and Related Services',
-                'Area Ethnic Cultural Gender and Group Studies',
-                'Biological and Biomedical Sciences',
-                'Business Management Marketing and Related Support Services',
-                'Communication Journalism and Related Programs',
-                'Communications Technologies/Technicians and Support Services',
-                'Computer and Information Sciences and Support Services',
-                'Construction Trades',
-                'Education',
-                'Engineering',
-                'Engineering Technologies and Engineering-Related Fields',
-                'English Language and Literature/Letters',
-                'Family and Consumer Sciences/Human Sciences',
-                'Foreign Languages Literatures and Linguistics',
-                'Health Professions and Related Programs',
-                'History',
-                'Homeland Security Law Enforcement Firefighting and Related Protective Services',
-                'Legal Professions and Studies',
-                'Liberal Arts and Sciences General Studies and Humanities',
-                'Library Science',
-                'Mathematics and Statistics',
-                'Mechanic and Repair Technologies/Technicians',
-                'Military Technologies and Applied Sciences',
-                'Multi/Interdisciplinary Studies',
-                'Natural Resources and Conservation',
-                'Parks Recreation Leisure and Fitness Studies',
-                'Personal and Culinary Services',
-                'Philosophy and Religious Studies',
-                'Physical Sciences',
-                'Precision Production',
-                'Psychology',
-                'Public Administration and Social Service Professions',
-                'Science Technologies/Technicians',
-                'Social Sciences',
-                'Theology and Religious Vocations',
-                'Transportation and Materials Moving',
-                'Visual and Performing Arts'],
-  useDimmer: false
-});
+var loc = window.location.pathname
+if (loc.includes('en-espanol')) {
+  $('#input_tagator1').tagator({
+    autocomplete: ['Agricultura Agricultura operaciones y ciencias relacionados',
+      'Arquitectura y servicios relacionados',
+      'Estudios étnicos culturales o de género ',
+      'Biología y ciencias biomédicas',
+      'Negocios, administración, mercadotecnia y servicios de soporte relacionados',
+      'Comunicaciones, periodismo y programas relacionados ',
+      'Tecnologías de comunicaciones/técnicos y servicios de soporte',
+      'iencia de computación e información y servicios de soporte',
+      'Construcción ',
+      'Educación ',
+      'Ingeniería',
+      'Tecnologías de ingeniería y campos de estudio relacionados',
+      'Literatura e idiomas ',
+      'Ciencias de familia y de consumidor/Ciencias humanas',
+      'Literaturas de lenguas extranjeras  y lingüística ',
+      'Profesionales de sanidad y programas relacionados',
+      'Historia',
+      'Seguridad nacional, orden público, servicio de bomberos y servicios de soporte relacionados',
+      'Profesionales jurídicos y estudios de ley',
+      'Artes liberales, estudios generales y humanidades',
+      'Ciencias de biblioteca',
+      'Matemática y estadística',
+      'Tecnologías y técnicas de mecánica y reparación/',
+      'Tecnologías militares y ciencias aplicadas',
+      'Estudios interdisciplinarios ',
+      'Recursos naturales y de conservación',
+      'Estudios de parques de deportes, recreación, ocio, y ejercicio',
+      'Servicios culinario y personal',
+      'Filosofía y estudios religiosos',
+      'Ciencias físicas',
+      'Producción de precisión',
+      'Psicología',
+      'Administración pública y servicios sociales ',
+      'Ciencias tecnologías/técnicos',
+      'Ciencias sociales',
+      'Teología y vocaciones religiosas',
+      'Transportación y movimiento de materiales',
+      'Artes visuales y escénicas'],
+      useDimmer: false
+    });
+} else {      
+  $('#input_tagator1').tagator({
+    autocomplete: ['Agriculture Agriculture Operations and Related Sciences',
+                  'Architecture and Related Services',
+                  'Area Ethnic Cultural Gender and Group Studies',
+                  'Biological and Biomedical Sciences',
+                  'Business Management Marketing and Related Support Services',
+                  'Communication Journalism and Related Programs',
+                  'Communications Technologies/Technicians and Support Services',
+                  'Computer and Information Sciences and Support Services',
+                  'Construction Trades',
+                  'Education',
+                  'Engineering',
+                  'Engineering Technologies and Engineering-Related Fields',
+                  'English Language and Literature/Letters',
+                  'Family and Consumer Sciences/Human Sciences',
+                  'Foreign Languages Literatures and Linguistics',
+                  'Health Professions and Related Programs',
+                  'History',
+                  'Homeland Security Law Enforcement Firefighting and Related Protective Services',
+                  'Legal Professions and Studies',
+                  'Liberal Arts and Sciences General Studies and Humanities',
+                  'Library Science',
+                  'Mathematics and Statistics',
+                  'Mechanic and Repair Technologies/Technicians',
+                  'Military Technologies and Applied Sciences',
+                  'Multi/Interdisciplinary Studies',
+                  'Natural Resources and Conservation',
+                  'Parks Recreation Leisure and Fitness Studies',
+                  'Personal and Culinary Services',
+                  'Philosophy and Religious Studies',
+                  'Physical Sciences',
+                  'Precision Production',
+                  'Psychology',
+                  'Public Administration and Social Service Professions',
+                  'Science Technologies/Technicians',
+                  'Social Sciences',
+                  'Theology and Religious Vocations',
+                  'Transportation and Materials Moving',
+                  'Visual and Performing Arts'],
+    useDimmer: false
+  });
+}
 
 function setState(stateId){
   if ($('#'+stateId).hasClass('state-selected')) {

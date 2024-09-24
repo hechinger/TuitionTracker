@@ -3075,6 +3075,9 @@ caption {
   height:30px;
   text-align:center;
 }
+.legend-square-es {
+  margin-left: 0px;
+}
 .legend-square.net-price-legend {
   background-color:#D2392A;
   color:white;
@@ -3098,6 +3101,9 @@ caption {
   }
   .legend-square-inner:last-child {
     width:100px;
+  }
+  .legend-square-inner-es:last-child {
+    width:150px;
   }
 }
 
@@ -10043,6 +10049,10 @@ input:-webkit-autofill:focus {
       -ms-transform: rotate(20deg);
           transform: rotate(20deg);
   background-color: transparent;
+}
+.promo-content-bdr-es:after,
+.promo-content-bdr-es--reverse:after {
+  top: 55px;
 }
 @media (min-width: 750px) {
   /* line 66, ../scss/components/_promo.scss */

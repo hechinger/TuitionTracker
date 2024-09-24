@@ -11,7 +11,15 @@ const minEnrollment = 4.51;
 // total, amerindalasknat, asian, 'black', 'hisp', 'nathawpacisl', 'white','twomore', 'unknown']
 let nationalAverage = [[51.63, 42.67, 56.77, 40.36, 47.90, 46.56, 54.39, 47.00, 49.01, 55.56],
                        [41.87, 32.44, 47.27, 30.08, 39.87, 33.67, 45.10, 35.05, 37.37, 40.31]];
-
+var natl_avg_text = "Nat'l average"
+var language = 'english'
+var loc = window.location.pathname
+if (loc.includes('en-espanol')) {
+  language = 'espanol'
+}
+if (language == 'espanol') {
+  natl_avg_text = 'Promedio nacional'
+}
 export function findData(grad, degreetype){
 
 // helper function to test if race meets minimum enrollment
@@ -31,7 +39,10 @@ let chartableGrad = grad.yearly_data.slice(1, 7).reverse();
 // note: key for american indian alaskan native varies between 2 and 4 year institutions
 const globalRacePool = ['amerindalasknat', 'asian', 'black', 'hisp', 'nathawpacisl', 'white','twomore', 'unknown'];
 // global list of readable race names
-const globalReadableRaces = ["AMERICAN INDIAN / ALASKA NATIVE", "ASIAN", "BLACK / AFRICAN AMERICAN", "HISPANIC / LATINO", "NATIVE HAWAIIAN / PACIFIC ISLANDER",  "WHITE","TWO OR MORE RACES", "NO RACE REPORTED"];
+var globalReadableRaces = ["AMERICAN INDIAN / ALASKA NATIVE", "ASIAN", "BLACK / AFRICAN AMERICAN", "HISPANIC / LATINO", "NATIVE HAWAIIAN / PACIFIC ISLANDER",  "WHITE","TWO OR MORE RACES", "NO RACE REPORTED"];
+if (language == "espanol") {
+  globalReadableRaces = ["Indígena de las Américas o nativa de Alaska", "Asiática", "Negra o afroamericana", "Hispana/Latina", "Nativa hawaiana / isleña del Pacífico",  "Blanca","Dos razas o más", "No raza reportada"];
+}
 const raceColors = ['#000000','#00aeef', '#8531BA', '#E46F88', '#E4C16F','#6FE4CF', '#e9651b','#52b033'];
 
 // empty array that we'll populate with races that pass the threshold
@@ -159,8 +170,10 @@ export function runData(datafile) {
             .range([0, chartWidth]);
 
   const globalRacePool = ['all','amerindalasknat', 'asian', 'black', 'hisp', 'nathawpacisl', 'white','twomore', 'unknown'];
-  const globalReadableRaces = ["TOTAL","AMERICAN INDIAN / ALASKA NATIVE", "ASIAN", "BLACK / AFRICAN AMERICAN", "HISPANIC / LATINO", "NATIVE HAWAIIAN / PACIFIC ISLANDER",  "WHITE","TWO OR MORE RACES", "NO RACE REPORTED"];
-
+  var globalReadableRaces = ["TOTAL","AMERICAN INDIAN / ALASKA NATIVE", "ASIAN", "BLACK / AFRICAN AMERICAN", "HISPANIC / LATINO", "NATIVE HAWAIIAN / PACIFIC ISLANDER",  "WHITE","TWO OR MORE RACES", "NO RACE REPORTED"];
+  if (language == "espanol") {
+    globalReadableRaces = ["TOTAL","INDÍGENA DE LAS AMÉRICAS O NATIVA DE ALASKA", "ASIÁTICA", "NEGRA O AFROAMERICANA", "HISPANA/LATINA", "NATIVA HAWAIANA / ISLEÑA DEL PACÍFICO",  "BLANCA","DOS RAZAS O MÁS", "NO RAZA REPORTADA"];
+  }
   const raceColors = ['#000000','#00aeef', '#8531BA', '#E4C16F', '#E46F88','#6FE4CF', '#e9651b','#52b033', 'grey'];
   let rectangles = globalRacePool.map(function(race) {
 
@@ -295,7 +308,7 @@ group.append("path")
         .attr("transform", function(d, i) { return "translate(" + 10 + "," + -7 + ")"; })
         .attr("dy", 0)
         .text((d, i) => { 
-          return "NAT'L AVERAGE"})
+          return natl_avg_text})
         .attr("font-size", 12)
         .attr("opacity", 0)
         .transition()

@@ -29,6 +29,21 @@ const pageUrl = window.location;
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 let pageUnitid = urlParams.get('unitid')
+var language = 'english'
+var loc = window.location.pathname
+if (loc.includes('en-espanol')) {
+  language = 'espanol'
+}
+var text_public = 'public'
+var text_private = 'private'
+var text_forprofit = 'for-profit'
+var text_oncampus = 'on campus'
+if (language == 'espanol') {
+  text_public = 'pública'
+  text_private = 'privada'
+  text_forprofit = 'con fines de lucro'
+  text_oncampus = 'en el campus'
+}
 
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
@@ -60,7 +75,7 @@ if (getCookie('income')) {
 }
 let v = Math.floor(Math.random() * 10000)
 if (pageUnitid) {
-  $.getJSON(`./data/school-data-2024-04/${pageUnitid}.json?v=${v}`, (data) => {
+  $.getJSON(`/data/school-data-2024-04/${pageUnitid}.json?v=${v}`, (data) => {
     // SIDEBAR SCHOOL INFO
   var site = "http://" + data.website;
 
@@ -171,11 +186,11 @@ if (pageUnitid) {
   $('#stats-url a, #mobile-stats-url a').attr("href", site);
 
   if (data.level === 1 || data.level === 4){
-    $('#stats-type, #mobile-stats-type span').html("public");
+    $('#stats-type, #mobile-stats-type span').html(text_public);
   } else if (data.level === 2 || data.level === 5){
-      $('#stats-type, #mobile-stats-type span').html("private");
+      $('#stats-type, #mobile-stats-type span').html(text_private);
     } else {
-      $('#stats-type, #mobile-stats-type span').html("for-profit");
+      $('#stats-type, #mobile-stats-type span').html(text_forprofit);
     }
 
   if (data.level < 4){
@@ -240,7 +255,7 @@ if (pageUnitid) {
       $('#sticker-living').text('off campus without family');
       } else {
       stickerPrice = `$${addCommas(Math.round(priceStickerHeadline[10].stickerPrice))}`;
-      $('#sticker-living').text('on campus');
+      $('#sticker-living').text(text_oncampus);
       $('#sticker-living-fine').text(', on-campus room and board');
     }
   }

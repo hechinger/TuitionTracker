@@ -4,6 +4,19 @@ import tooltip from './tooltip';
 
 let indexPrice;
 
+var language = 'english'
+var loc = window.location.pathname
+if (loc.includes('en-espanol')) {
+  language = 'espanol'
+}
+var upper_net_price_text = "upper net price estimation"
+var projected_net_price_text = "projected net price"
+var lower_net_price_text = "lower net price estimation"
+if (language == 'espanol') {
+  upper_net_price_text = "ESTIMACIÓN DEL PRECIO NETO MAYOR"
+  projected_net_price_text = "ESTIMACIÓN DEL PRECIO NETO"
+  lower_net_price_text = "ESTIMACIÓN DEL PRECIO NETO MENOR"
+}
 export function findData(price, selectedNetPrice){
 
   indexPrice = selectedNetPrice
@@ -483,7 +496,7 @@ const sampleData = [{
    })
 
  const pointsMini = gMini.selectAll('.text-sample')
-   .data(["— upper net price estimation","—  projected net price","— lower net price estimation"])
+   .data(["— " +upper_net_price_text,"—  "+projected_net_price_text,"— "+lower_net_price_text])
    .enter()
    .append('g')
    .attr('class', (d)=>{
