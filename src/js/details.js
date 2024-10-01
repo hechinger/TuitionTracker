@@ -38,11 +38,13 @@ var text_public = 'public'
 var text_private = 'private'
 var text_forprofit = 'for-profit'
 var text_oncampus = 'on campus'
+var text_offcampus = 'off campus without family'
 if (language == 'espanol') {
   text_public = 'pública'
   text_private = 'privada'
   text_forprofit = 'con fines de lucro'
   text_oncampus = 'en el campus'
+  text_offcampus = 'fuera del campus sin familia'
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -248,11 +250,11 @@ if (pageUnitid) {
 
   if (priceStickerHeadline[10].stickerPrice === null || priceStickerHeadline[10].stickerPrice === 0) {
     stickerPrice = `$${addCommas(Math.round(data.yearly_data[0].price_instate_offcampus_nofamily))}`;
-    $('#sticker-living').text('off campus without family');
+    $('#sticker-living').text(text_offcampus);
   } else {
       if (priceStickerHeadline[10].stickerPriceType === "price_instate_offcampus_nofamily") {
       stickerPrice = `$${addCommas(Math.round(priceStickerHeadline[10].stickerPrice))}`;
-      $('#sticker-living').text('off campus without family');
+      $('#sticker-living').text(text_offcampus);
       } else {
       stickerPrice = `$${addCommas(Math.round(priceStickerHeadline[10].stickerPrice))}`;
       $('#sticker-living').text(text_oncampus);

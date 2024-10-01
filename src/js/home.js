@@ -105,6 +105,12 @@ const programArrayEs = ['Agricultura Agricultura operaciones y ciencias relacion
                 'Transportación y movimiento de materiales',
                 'Artes visuales y escénicas'
 ]
+
+let emptyFilterText = "No selection(s) made"
+var loc = window.location.pathname
+if (loc.includes('en-espanol')) {
+  emptyFilterText = "No se hizo una selección"
+}
 //object that will keep the current state of the filters any time filters change
 //starts with every filter as null
 const filters = {
@@ -553,20 +559,37 @@ function onSelectChange(ev){
 }
 
 function printInfoBox(filters){
-  const emptyFilterText = 'NO SELECTION(S) MADE'
+  var espanol = false;
+  var loc = window.location.pathname;
+  if (loc.includes('en-espanol')) {
+    espanol = true;
+  }
   // Find index value of selected state
   const stateIndex = $('#states').find(":selected").index();
   let stateName = states.join(", ")
-  const priceSpan = $('.price:checked').attr('data-label');
+  let priceSpan = $('.price:checked').attr('data-label');
+  
   const sizeSpan = $("#choose-size input:checkbox:checked").map(function(){
         return this.value;
     }).get().join(', ');
-  const selectedType = $("#choose-type input:checkbox:checked").map(function(){
+  let selectedType = $("#choose-type input:checkbox:checked").map(function(){
         return this.value;
     }).get().join(', ');
-  const selectedDegree = $("#choose-degree input:checkbox:checked").map(function(){
+  let selectedDegree = $("#choose-degree input:checkbox:checked").map(function(){
           return this.value;
       }).get().join(', ');
+
+  if (espanol) {
+    if (selectedDegree) {
+      selectedDegree = selectedDegree.replace("4-year", "Título de cuatro años");
+      selectedDegree = selectedDegree.replace("2-year", "Título de dos años");
+    }
+    if (selectedType) {
+      selectedType = selectedType.replace("public", "pública");
+      selectedType = selectedType.replace("private", "privada");
+      selectedType = selectedType.replace("for-profit", "con fines de lucro");
+    }
+  }
 
   $('.chosen-state span').html(stateName || emptyFilterText);
   $('.chosen-price span').html(priceSpan || emptyFilterText);

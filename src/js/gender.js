@@ -19,21 +19,25 @@ export function runData(datafile) {
   let globalGenderPool = ['female', 'male'];
 
   let globalReadableGenders = ["FEMALE", "MALE"];
+  let another_text_read = 'ANOTHER'
+  let unknown_text_read = 'UNKNOWN'
   if (language == "espanol") {
     globalReadableGenders = ["MUJER","HOMBRE"]
+    another_text_read = 'OTRO'
+    unknown_text_read = 'DESCONOCIDO'
   }
 
   let genderColors = ['#ef00ae', '#00aeef'];
 
   if (datafile['another'] != null) {
     globalGenderPool.push('another');
-    globalReadableGenders.push('ANOTHER');
+    globalReadableGenders.push(another_text_read);
     genderColors.push('#8531BA');
   }
 
   if (datafile['unknown'] != null) {
     globalGenderPool.push('unknown');
-    globalReadableGenders.push('UNKNOWN');
+    globalReadableGenders.push(unknown_text_read);
     genderColors.push('grey');
   }
 
