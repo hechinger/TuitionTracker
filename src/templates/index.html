@@ -62,7 +62,7 @@
 
   <link rel="shortcut icon" type="image/x-icon" href="images/_tt-favicon.png"/>
   <link href='//fonts.googleapis.com/css?family=Lato:100,300,700,900|PT+Serif:400,400italic,700,700italic|Montserrat:400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" type="text/css" href="css/styles-bundle.css" />
+  <link rel="stylesheet" type="text/css" href="css/styles-bundle.css?v=3" />
 
   <script src="//code.jquery.com/jquery-2.2.3.min.js"></script>
 
@@ -124,29 +124,40 @@
 
 </script>
 
-
-
-
 </head>
 <body>
 
+  <header class="branding">
+    <div class="wrapper">
+        
+      <div class="site-branding">
+      <a href="https://hechingerreport.org/" class="custom-logo-link" rel="home"><img style="width: 240px" class="custom-logo" src="./images/Hechinger_logo_blk.png"></a>
+      </div><!-- .site-branding -->
+
+      <div class="donate">
+      <a href="https://hechingerreport.fundjournalism.org/tuition-tracker/?amount=15&campaign=701VK00000EtCOfYAN&frequency=monthly" class="donate-logo-link">
+        <img src="./images/donate-larger.png" class="donate-logo" />
+      </a>
+      </div>
+
+    </div>      
+  </header>  
+
   <article id="content">
 
-  
-
 <section class="content-well clearfix" id="intro">
-  <div class="share-btns" id="twitter-share"></div>
-  <div class="share-btns" id="facebook-share"></div>
+  <div class="share-btns" id="language-share">
+    <a href="/en-espanol">En Español</a>
+  </div>
 
   <div id="progress-box">
     <header class="your-selections">You&rsquo;ve selected:</header>
     <ul>
       <li class="chosen-state"><i class="fas fa-thumbtack"></i>&nbsp;<span>No selection(s) made</span></li>
       <li class="chosen-degree"><i class="fas fa-graduation-cap"></i>&nbsp; <span>No selection(s) made</span></li>
-      <li class="chosen-subject"><i class="fas fa-flask"></i>&nbsp; <span>No selection(s) made</span></li>
+      <!-- <li class="chosen-subject"><i class="fas fa-flask"></i>&nbsp; <span>No selection(s) made</span></li> -->
       <li class="chosen-type"><i class="fas fa-university"></i>&nbsp; <span>No selection(s) made</span></li>
       <li class="chosen-size"><i class="fas fa-users"></i>&nbsp; <span>No selection(s) made</span></li>
-      <li class="chosen-urbanization"><i class="fas fa-tree"></i>&nbsp; <span>No selection(s) made</span></li>
     </ul>
     <header class="your-schools"><span>0</span> matching schools</header>
 
@@ -541,7 +552,7 @@
 
     </section>
     <!--/school-degree-section-->
-    <section id="school-degree-section" class="form-section">
+    <!-- <section id="school-degree-section" class="form-section">
       <div class="expander-front-page">
       <a class="expander-trigger expander-hidden">
       <header class="section-title"><span class="number"><i class="fas fa-flask"></i></span> <span class="text">What subject(s) are you looking to study?</span></header></a>
@@ -554,7 +565,7 @@
       </div>
     </div>
 
-    </section>
+    </section> -->
 
 
 

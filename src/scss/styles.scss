@@ -1901,6 +1901,67 @@ body {
   right: 0px;
 }
 
+#language-share {
+  right: 0px;
+  font-size: 1.5rem;
+  width: 100px;
+  height: 30px;
+  font-weight: 400;
+}
+
+header.branding {
+  background-color: rgb(255, 204, 51);
+  border-bottom-width: 0;
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 32px;
+  padding: 0;
+}
+
+.wrapper {
+  align-items: center;
+  box-sizing: border-box;
+  color: #000;
+  padding: 0.5rem 0;
+  display: flex;
+  font-size: 20px;
+  font-weight: 400;
+  justify-content: flex-start;
+  line-height: 32px;
+  margin: auto;
+  max-width: 90vw;
+  width: 1200px;
+  margin-right: 5px;
+}
+
+@media only screen and (min-width: 782px) {
+  .wrapper {
+    padding: 1.5rem 0 1rem;
+    flex-wrap: nowrap;
+  }
+}
+
+.site-branding {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-basis: auto;
+  flex-wrap: wrap;
+  font-weight: 400;
+  justify-content: flex-start;
+  line-height: 25px;
+  margin: auto;
+}
+
+.donate-logo {
+  width: 152px;
+  float: right;
+}
+
+.donate {
+  float: right;
+}
+
 /* School info */
 
 .school-container {

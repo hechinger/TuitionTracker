@@ -322,6 +322,7 @@ const setSearchBehavior = function(){
   });
 }
 function handleTagChange(ev){
+  console.log("handle tag change")
   const cb = $(this);
 
   // traverses up the DOM to find which filter this cb belongs to
@@ -338,6 +339,7 @@ function handleTagChange(ev){
           .map((cb) => {
             return programArray.indexOf(cb) + 1
           })
+    console.log(filters.programs)
   }
   //reconstruct filteredItems to reflect the current filter selections
   runFilters();
@@ -436,6 +438,9 @@ function runFilters(){
             if (filterValue[0] === 0) {
               return school
             } else {
+              console.log(school[key])
+              console.log(filterValue)
+              console.log(carriesPrograms(filterValue,school[key]))
               return carriesPrograms(filterValue,school[key])
             }
           })
@@ -578,6 +583,9 @@ function printInfoBox(filters){
   let selectedDegree = $("#choose-degree input:checkbox:checked").map(function(){
           return this.value;
       }).get().join(', ');
+  let selectedProgram = $('.tagator_tag').map(function() {
+          return $(this).contents().get(0).nodeValue.trim();
+      }).get().join(', ');
 
   if (espanol) {
     if (selectedDegree) {
@@ -597,6 +605,7 @@ function printInfoBox(filters){
   $('.chosen-type span').html(selectedType || emptyFilterText);
   $('.chosen-size span').html(sizeSpan || emptyFilterText);
   $('.your-schools span').html(filteredItems.length);
+  // $('.chosen-subject span').html(selectedProgram || emptyFilterText);
 }
 
 //Autocomplete tag function
