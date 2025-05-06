@@ -322,7 +322,6 @@ const setSearchBehavior = function(){
   });
 }
 function handleTagChange(ev){
-  console.log("handle tag change")
   const cb = $(this);
 
   // traverses up the DOM to find which filter this cb belongs to
@@ -339,7 +338,6 @@ function handleTagChange(ev){
           .map((cb) => {
             return programArray.indexOf(cb) + 1
           })
-    console.log(filters.programs)
   }
   //reconstruct filteredItems to reflect the current filter selections
   runFilters();
@@ -438,9 +436,6 @@ function runFilters(){
             if (filterValue[0] === 0) {
               return school
             } else {
-              console.log(school[key])
-              console.log(filterValue)
-              console.log(carriesPrograms(filterValue,school[key]))
               return carriesPrograms(filterValue,school[key])
             }
           })

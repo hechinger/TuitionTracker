@@ -77,7 +77,7 @@ if (getCookie('income')) {
 }
 let v = Math.floor(Math.random() * 10000)
 if (pageUnitid) {
-  $.getJSON(`/data/school-data-2024-04/${pageUnitid}.json?v=${v}`, (data) => {
+  $.getJSON(`/data/school-data-2025/${pageUnitid}.json?v=${v}`, (data) => {
     // SIDEBAR SCHOOL INFO
   var site = "http://" + data.website;
 
@@ -247,23 +247,39 @@ if (pageUnitid) {
   // STICKER PRICE
   let priceStickerHeadline = price.findData(data, 1);
   let stickerPrice;
+  let oosStickerPrice;
 
   if (priceStickerHeadline[10].stickerPrice === null || priceStickerHeadline[10].stickerPrice === 0) {
     stickerPrice = `$${addCommas(Math.round(data.yearly_data[0].price_instate_offcampus_nofamily))}`;
-    $('#sticker-living').text(text_offcampus);
+    oosStickerPrice = `$${addCommas(Math.round(data.yearly_data[0].price_oostate_offcampus_nofamily))}`;
+    $('.sticker-living').text(text_offcampus);
   } else {
       if (priceStickerHeadline[10].stickerPriceType === "price_instate_offcampus_nofamily") {
-      stickerPrice = `$${addCommas(Math.round(priceStickerHeadline[10].stickerPrice))}`;
-      $('#sticker-living').text(text_offcampus);
+        stickerPrice = `$${addCommas(Math.round(priceStickerHeadline[10].stickerPrice))}`;
+        oosStickerPrice = `$${addCommas(Math.round(data.yearly_data[0].price_oostate_offcampus_nofamily))}`;
+        $('.sticker-living').text(text_offcampus);
       } else {
-      stickerPrice = `$${addCommas(Math.round(priceStickerHeadline[10].stickerPrice))}`;
-      $('#sticker-living').text(text_oncampus);
-      $('#sticker-living-fine').text(', on-campus room and board');
+        stickerPrice = `$${addCommas(Math.round(priceStickerHeadline[10].stickerPrice))}`;
+        oosStickerPrice = `$${addCommas(Math.round(data.yearly_data[0].price_oostate_oncampus))}`;
+        $('.sticker-living').text(text_oncampus);
+        $('#sticker-living-fine').text(', on-campus room and board');
     }
   }
 
 
   $('#sticker-price').html(stickerPrice);
+  if (stickerPrice != oosStickerPrice) {
+    $('#ooo-sticker-price').html(oosStickerPrice);
+    $('#instate-text').html("IN-STATE STICKER PRICE<br>(2025-26)");
+    $('#instate-text-es').html("Precio para residentes<br>del estado (2025-26)");
+    $('#instate-net-text').html("Net price<br>(2025-26)");
+    $('.promo-content-bdr').addClass('promo-content-bdr-es');
+    $('.how-we-know-text').addClass('oostate-visible');
+    $('.instate-sticker-fp').html(' in-state students');
+    $('#hpt').html('Historical price trend (based on in-state tuition)');
+  } else {
+    $('#oostate-block').hide();
+  }
 
   $('#sticker-school').html(data.institution);
 
@@ -294,9 +310,7 @@ if (pageUnitid) {
   // Fill and build gender bars
 
   const unknown = data.enrollment.total_genderunknown;
-  console.log(unknown);
   const another = data.enrollment.total_anothergender;
-  console.log(another);
 
   let total_enroll_sum = data.enrollment.total_enrollment;
   let use_unknown = false;
@@ -338,10 +352,7 @@ if (pageUnitid) {
   if(use_another) {
     const genderBarAnother = parseInt($("#gender-pct-another").attr("data-pct"));
   }
-  console.log("use another " + use_another)
-  console.log("use unknown " + use_unknown)
   if (!use_another && !use_unknown) {
-    console.log("create female/male chart")
     $('#gender-pct-female').attr('data-pct',femalePct);
     $('#gender-pct-male').attr('data-pct',malePct);
     $("#gender-pct-female").css('width',femalePct+'%');
@@ -668,16 +679,16 @@ if (pageUnitid) {
       lng: longitude
     };
 
-    const map = new google.maps.Map(
-        document.getElementById('locator-map'), {
-          zoom: 10,
-          center: schoolMarker,
-          mapTypeId: google.maps.MapTypeId.ROAD,
-          disableDefaultUI: true,
-          scrollwheel: false,
-          styles: [
-              {"featureType":"water","elementType":"geometry","stylers":[{"color":"#c9d9de"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#e6e6e6"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#d4d4d4"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#d4e2d4"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
-        });
+    // const map = new google.maps.Map(
+    //     document.getElementById('locator-map'), {
+    //       zoom: 10,
+    //       center: schoolMarker,
+    //       mapTypeId: google.maps.MapTypeId.ROAD,
+    //       disableDefaultUI: true,
+    //       scrollwheel: false,
+    //       styles: [
+    //           {"featureType":"water","elementType":"geometry","stylers":[{"color":"#c9d9de"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#e6e6e6"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#d4d4d4"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#d4e2d4"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
+    //     });
 
     
   }); // end getJSON

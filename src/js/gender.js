@@ -41,7 +41,6 @@ export function runData(datafile) {
     genderColors.push('grey');
   }
 
-  console.log("array length: " + Object.keys(datafile).length);
   if (Object.keys(datafile).length == 4) {
     h = 150;
   }

@@ -204,8 +204,8 @@
                     <div class="mobile-stats-info" id="mobile-stats-type"><i id="diploma-icon-big" class="fas fa-graduation-cap fa-3x"></i><span id="mobile-stats-control"></span></div>
                     <div class="mobile-stats-info" id="mobile-stats-degree"><span><strong></strong></span>year</div>
                     <div class="mobile-stats-info" id="mobile-stats-hbcu">Historically Black College/Univ. (HBCU) <br/><span></span></div>
-                    <div class="mobile-stats-info" id="mobile-stats-acc-rate"><span>--</span>Acceptance rate (2022)</div>
-                    <div class="mobile-stats-info" id="mobile-stats-sticker"><span>--</span>Pay sticker price (2021)</div>
+                    <div class="mobile-stats-info" id="mobile-stats-acc-rate"><span>--</span>Acceptance rate (2023)</div>
+                    <div class="mobile-stats-info" id="mobile-stats-sticker"><span>--</span>Pay sticker price (2022)</div>
                     <div style="display:none;" class="mobile-stats-info" id="mobile-stats-debt-warning"><div><i id="diploma-icon-big" class="fas fa-dollar-sign fa-3x"></i></div><div>High debt</div></div>
                   </div>
               </div>
@@ -220,23 +220,22 @@
               <div class="promo-signup-inner">
                 <div class="promo-hdr">
                     <div id="price">
-                      <div class="price-header">Sticker price (2024-25)</div>
+                      <div class="price-header" id="instate-text">Sticker price (2025-26)</div>
                           <div class="price-label" id="sticker-price"></div>
-                          <div class="fine-print">What we project the school will advertise as the cost of attendance for living 
-                            <span id="sticker-living"></span> 
+                          <div class="fine-print">What we project the school will advertise as the cost of attendance for<span class="instate-sticker-fp"></span> living
+                            <span class="sticker-living"></span> 
                           </div>
                     </div>
                     <div id="net-price">
-                      <div class="price-header">Net price (2024-25)</div>
+                      <div class="price-header" id="instate-net-text">Net price (2025-26)</div>
                       <div class="price-label" id="calculated-net-price"></div>
-                      <div class="fine-print">What we project students in the <span id="bracket" class="net-span">--</span> income bracket will actually pay</div>
+                      <div class="fine-print">What we project <span class="instate-sticker-fp">students</span> in the <span id="bracket" class="net-span">--</span> income bracket will actually pay</div>
                     </div>
                 </div>
                 
               </div> <!-- /promo-inner -->
               <div class="promo-bdr promo-bdr--bottom"></div>
             </div>
-
 
             <div id="selection-bar">
               <div class="call-container"><div class="call-to-action"><div><p class="call-to-action-bold">SELECT INCOME BRACKET</p></div></div></div>
@@ -254,12 +253,15 @@
             </div>
             <div class="how-we-know"><div class="how-we-know-inner">How do we know?</div></div>
             <div class="how-we-know-text"><div class="how-we-know-close">X</div><div class="how-we-know-text-inner"><h4>Projecting net prices</h4><p>It is difficult to predict what the average student will pay in the future, as the federal government publishes data with several years of delays.</p><p>The Hechinger Report projected sticker prices for the 2023-2024 academic year using the average 10-year growth rate. We estimate net price by using the percentage difference between sticker price and net price from the latest year it is available (2020-21) and applying that discount rate to the projected 2023-24 sticker price.</p><p>As a result, these numbers are an approximation, not an exact figure. To get a more accurate estimate of your costs, visit the school's net price calculator.</div></div>
-          </div>
+              
+
+             
+            </div>
           <div class="section-end">
           </div>
         </section>
         <section class="family-income">
-          <header class="section-header">Historical price trend</header>
+          <header class="section-header" id="hpt">Historical price trend</header>
           <div id="selection-bar" style="display:none">
             <div class="call-container"><div class="call-to-action"><div>Select an income bracket to see net price</div></div></div>
           </div>
@@ -284,7 +286,15 @@
             <svg id="sticker-price-chart"></svg>
             <div class="freeze"><div class="freeze-flag">FREEZE</div><div>This institution has frozen tuition at some point in the past decade, making it harder to predict price trends. Forecast may differ from final price.</div></div>
             <div class="reset"><div class="reset-flag">RESET</div><div>This institution significantly dropped tuition at some point in the past decade, making it harder to predict price trends. Forecast may differ from final price.</div></div>
-            <p class="note">Historical sticker-price data up to 2022-23 and net price up to 2021-22 provided by NCES. Data for following years projected from Hechinger Report analyses. Shaded area calculated using highest and lowest historical discount rate for average incoming freshman in income level. In-state tuition figures are used.</p>
+            <p class="note">For public universities, this chart represents the cost for in-state students. Net price is calculated
+              by subtracting federal, state, local and institutional grants and scholarships from the sticker price
+              for first-time, full-time undergraduates. Net price data shown above includes only families of
+              students who received some form of federal student aid, including loans, since others are not
+              tracked.</p>
+            <p class="note">Historical sticker-price data up to 2023-24 and net price up to 2022-23 are provided by NCES.
+              Data for following years is projected from Hechinger Report analyses. The shaded area is
+              calculated using highest and lowest historical discount rate for average incoming freshman in
+              income level.</p>
           </div>
           <!-- <div class="no-data-placeholder" id="sticker-price-placeholder">No data available for school</div> -->
         </section>
@@ -352,7 +362,7 @@
       <div class="cost-header"><div>Success rates</div></div>
       <div id="grad-rates">
 
-          <header class="section-header">Graduation rates by race</header>
+          <header class="section-header">Graduation rates by race (2019-2023)</header>
 
           <p class="tagline">Rate of students who earn a bachelor’s degree within six years of starting or an associate degree within three years over the last five years.</p>
 
@@ -370,7 +380,7 @@
       <!--/grad rates-->
       <div id="retention-rates">
 
-         <header class="section-header">Retention rates by type</header>
+         <header class="section-header">Retention rates by type (2019-2023)</header>
          <p class="tagline">Percentage of freshmen at four-year colleges who returned the following fall or, at two-year colleges, who completed their credentials or returned after one year over the last five years.</p>
 
          <section class="graphic" id="retention-container">
@@ -428,7 +438,7 @@
      <div id="demographics">
 
          <div class="cost-header"><div>Demographics</div></div><br/>
-         <header class="section-header">Enrollment (2021-22)</header>
+         <header class="section-header">Enrollment (2023)</header>
          <div class="enrollment-stats-container">
            <div class="tagline enrollment-stat ft-enrollment">Total undergraduate enrollment:&nbsp; <span class="info"></span></div>
          </div>
@@ -540,7 +550,7 @@
     </ul> <!-- /ftr-nav-items -->
   </nav> <!-- .ftr-site-nav -->
     <p class="ftr-copyright-msg">
-      Copyright Ⓒ 2024 by Teachers College at Columbia University. All rights reserved.
+      Copyright Ⓒ 2025 by Teachers College at Columbia University. All rights reserved.
     </p>
     <p class="ftr-copyright-msg">This website uses cookies as well as similar tools and technologies to understand visitors' experiences. By continuing to use this website, you consent to Teachers College, Columbia University's usage of cookies and similar technologies, in accordance with the <a href="http://www.tc.columbia.edu/policylibrary/Cookie_Notice" previewlistener="true">Teachers College, Columbia University's Website Cookie Notice.</a></p>
   </div> <!-- .site-nav-copyright -->

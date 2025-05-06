@@ -190,5 +190,8 @@ src/assets/*
 
 src/data/school-data-09042019
 src/data/school-data-2024-04/*
+src/data/2025-work/*
 2024-data/*
-src/data/2024-final-data.csv
+2025-data/*
+src/data/*.csv
+src/data/school-data-2025/*

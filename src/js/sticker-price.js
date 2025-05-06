@@ -48,6 +48,7 @@ export function findData(price, selectedNetPrice){
   const priceData = chartablePrice.map(year => {
       // Determine most complete trend between on- and off-campus
       let stickerPriceType = 'price_instate_oncampus';
+      //let oosStickerPriceType = 'price_oostate_oncampus';
       let campusFlag = 'campus';
       let onCampusCount = 0;
       let offCampusCount = 0;
@@ -62,12 +63,14 @@ export function findData(price, selectedNetPrice){
 
       if (offCampusCount > onCampusCount + 1) {
         stickerPriceType = 'price_instate_offcampus_nofamily'
+        //oosStickerPriceType = 'price_oostate_offcampus_nofamily'
         campusFlag = 'offcampus'
       } 
 
       const thisYear = {
         'timescale': year.year,
         'stickerPrice': year[`${stickerPriceType}`],
+        //'oosStickerPrice': year[`${oosStickerPriceType}`],
         'stickerPriceType': stickerPriceType,
         'nyetPriceA': year[`avg_net_price_0_30000_titleiv_privateforprofit`],
         'nyetPriceB': year[`avg_net_price_30001_48000_titleiv_privateforprofit`],
@@ -352,7 +355,6 @@ export function runData(datafile) {
     }
    })
 
-console.log(newTrends,trends)
 const dx = d3.scaleBand().rangeRound([0, width/2]).padding(1).domain(datafile.map(d => d.timescale));
 const dy = d3.scaleLinear().range([100, 0]).domain([0,1])
 
@@ -416,7 +418,6 @@ const sampleData = [{
 
  const lineMini = d3.line()
    .x(function(d) { 
-    console.log(d)
     return dx(d.timescale); })
    .y(function(d) { return dy(0.5); });
 

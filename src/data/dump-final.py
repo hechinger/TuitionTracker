@@ -8,7 +8,7 @@ print("hello")
 # Run 'cat dump.py' to debug/see if anything in dump.py loads in terminal
 
 # Read the .csv file
-data = csv.DictReader(open("2024-final-data.csv","r"))
+data = csv.DictReader(open("merged-dataset-2025.csv","r"))
 
 # Function to print "null" for no info
 def convertInt(value):
@@ -39,19 +39,19 @@ for row in data:
 
     institution['unitid'] = row['UnitID']
     institution['institution'] = row['Institution Name']
-    institution['alias'] = row['Institution name alias (HD2022)'] # 
+    institution['alias'] = row['Institution name alias (HD2023)'] # 
     institution['city'] = row['city'] 
     institution['abbreviation'] = row['abbreviation'] 
     institution['hbcu'] = convertInt(row['hbcu'])
     institution['tribal_college'] = convertInt(row['tribal_college'])
-    institution['level'] = convertInt(row['Sector of institution (HD2022)'])
+    institution['level'] = convertInt(row['Sector of institution (HD2023)'])
 
     perc_sticker = parseFloat(row['perc_sticker'])
     if perc_sticker is not None:
         perc_sticker = perc_sticker / 100
     enrollment = [
-        ('perc_sticker',perc_sticker),
-        ('perc_admitted',parseFloat(row['perc_admitted'])),
+        ('perc_sticker', perc_sticker),
+        ('perc_admitted', parseFloat(row['perc_admitted'])),
         ("enrollment_unknown",convertInt(row['enrollment_unknown'])),
         ("enrollment_twomore",convertInt(row['enrollment_twomore'])),
         ("enrollment_white",convertInt(row['enrollment_white'])),
@@ -64,7 +64,7 @@ for row in data:
         ("total_men",parseFloat(row['total_men'])),
         ("total_women",parseFloat(row['total_women'])),
         ("total_enrollment",parseFloat(row['total_enrollment'])),
-        ("total_genderunknown",parseFloat(row['total_genderunkown'])),  # new 2024
+        ("total_genderunknown",parseFloat(row['total_genderunknown'])),  # new 2024
         ("total_anothergender",parseFloat(row['total_anothergender']))   # new 2024
     ]
 
@@ -73,11 +73,40 @@ for row in data:
     # Find the year in row headers
     # Build a JSON array based on the the yearly data for each school
 
+    years_list_25_26 = [
+        ("year","25-26"),
+
+        ("price_instate_oncampus",parseFloat(row["price_instate_oncampus_2526"])),
+        ("price_instate_offcampus_nofamily",parseFloat(row["price_instate_offcampus_nofamily_2526"])),
+        ("price_oostate_oncampus",parseFloat(row["price_oostate_oncampus_2526"])),
+        ("price_oostate_offcampus_nofamily",parseFloat(row["price_oostate_offcampus_nofamily_2526"])),
+
+        ("avg_net_price_0_30000_titleiv_privateforprofit",parseFloat(row["avg_net_price_0_30000_2526"])),
+        ("avg_net_price_30001_48000_titleiv_privateforprofit",parseFloat(row["avg_net_price_30001_48000_2526"])),
+        ("avg_net_price_48001_75000_titleiv_privateforprofit",parseFloat(row["avg_net_price_48001_75000_2526"])),
+        ("avg_net_price_75001_110000_titleiv_privateforprofit",parseFloat(row["avg_net_price_75001_110000_2526"])),
+        ("avg_net_price_110001_titleiv_privateforprofit",parseFloat(row["avg_net_price_110001_2526"])),
+
+        ("min_max_diff_0_30000_titleiv_privateforprofit_campus",json.loads(row["min_max_diff_0_30000_campus"])),
+        ("min_max_diff_30001_48000_titleiv_privateforprofit_campus",json.loads(row["min_max_diff_30001_48000_campus"])),
+        ("min_max_diff_48001_75000_titleiv_privateforprofit_campus",json.loads(row["min_max_diff_48001_75000_campus"])),
+        ("min_max_diff_75001_110000_titleiv_privateforprofit_campus",json.loads(row["min_max_diff_75001_110000_campus"])),
+        ("min_max_diff_110001_titleiv_privateforprofit_campus",json.loads(row["min_max_diff_110001_campus"])),
+
+        ("min_max_diff_0_30000_titleiv_privateforprofit_offcampus",json.loads(row["min_max_diff_0_30000_offcampus"])),
+        ("min_max_diff_30001_48000_titleiv_privateforprofit_offcampus",json.loads(row["min_max_diff_30001_48000_offcampus"])),
+        ("min_max_diff_48001_75000_titleiv_privateforprofit_offcampus",json.loads(row["min_max_diff_48001_75000_offcampus"])),
+        ("min_max_diff_75001_110000_titleiv_privateforprofit_offcampus",json.loads(row["min_max_diff_75001_110000_offcampus"])),
+        ("min_max_diff_110001_titleiv_privateforprofit_offcampus",json.loads(row["min_max_diff_110001_offcampus"])),
+    ]
+
     years_list_24_25 = [
         ("year","24-25"),
 
         ("price_instate_oncampus",parseFloat(row["price_instate_oncampus_2425"])),
         ("price_instate_offcampus_nofamily",parseFloat(row["price_instate_offcampus_nofamily_2425"])),
+        ("price_oostate_oncampus",parseFloat(row["price_oostate_oncampus_2425"])),
+        ("price_oostate_offcampus_nofamily",parseFloat(row["price_oostate_offcampus_nofamily_2425"])),
 
         ("avg_net_price_0_30000_titleiv_privateforprofit",parseFloat(row["avg_net_price_0_30000_2425"])),
         ("avg_net_price_30001_48000_titleiv_privateforprofit",parseFloat(row["avg_net_price_30001_48000_2425"])),
@@ -182,18 +211,6 @@ for row in data:
         ("avg_net_price_48001_75000_titleiv_privateforprofit",parseFloat(row["avg_net_price_48001_75000_1920"])),
         ("avg_net_price_75001_110000_titleiv_privateforprofit",parseFloat(row["avg_net_price_75001_110000_1920"])),
         ("avg_net_price_110001_titleiv_privateforprofit",parseFloat(row["avg_net_price_110001_1920"])),
-    ]
-    
-    years_list_18_19 = [
-        ("year","18-19"),
-        ("price_instate_oncampus",parseFloat(row["price_instate_oncampus_1819"])),
-        ("price_instate_offcampus_nofamily",parseFloat(row["price_instate_offcampus_nofamily1819"])),
-
-        ("avg_net_price_0_30000_titleiv_privateforprofit",parseFloat(row["avg_net_price_0_30000_1819"])),
-        ("avg_net_price_30001_48000_titleiv_privateforprofit",parseFloat(row["avg_net_price_30001_48000_1819"])),
-        ("avg_net_price_48001_75000_titleiv_privateforprofit",parseFloat(row["avg_net_price_48001_75000_1819"])),
-        ("avg_net_price_75001_110000_titleiv_privateforprofit",parseFloat(row["avg_net_price_75001_110000_1819"])),
-        ("avg_net_price_110001_titleiv_privateforprofit",parseFloat(row["avg_net_price_110001_1819"])),
         ("grad_rate_associate_3years_total",parseFloat(row["grad_rate_total"])),
         ("grad_rate_bachelors_6years_total",parseFloat(row["grad_rate_total"])),
 
@@ -218,6 +235,18 @@ for row in data:
 
         ("full_time_retention_rate",parseFloat(row["full_time_retention_rate"])),
         ("part_time_retention_rate",parseFloat(row["part_time_retention_rate"]))
+    ]
+
+    years_list_18_19 = [
+        ("year","18-19"),
+        ("price_instate_oncampus",parseFloat(row["price_instate_oncampus_1819"])),
+        ("price_instate_offcampus_nofamily",parseFloat(row["price_instate_offcampus_nofamily1819"])),
+
+        ("avg_net_price_0_30000_titleiv_privateforprofit",parseFloat(row["avg_net_price_0_30000_1819"])),
+        ("avg_net_price_30001_48000_titleiv_privateforprofit",parseFloat(row["avg_net_price_30001_48000_1819"])),
+        ("avg_net_price_48001_75000_titleiv_privateforprofit",parseFloat(row["avg_net_price_48001_75000_1819"])),
+        ("avg_net_price_75001_110000_titleiv_privateforprofit",parseFloat(row["avg_net_price_75001_110000_1819"])),
+        ("avg_net_price_110001_titleiv_privateforprofit",parseFloat(row["avg_net_price_110001_1819"])),
     ]
 
     years_list_17_18 = [
@@ -282,9 +311,6 @@ for row in data:
 
     years_list_12_13 = [
         ("year","12-13"),
-        ("price_instate_oncampus",parseFloat(row["price_instate_oncampus_1213"])),
-        ("price_instate_offcampus_nofamily",parseFloat(row["price_instate_offcampus_nofamily_1213"])),
-
         ("avg_net_price_0_30000_titleiv_privateforprofit",parseFloat(row["avg_net_price_0_30000_1213"])),
         ("avg_net_price_30001_48000_titleiv_privateforprofit",parseFloat(row["avg_net_price_30001_48000_1213"])),
         ("avg_net_price_48001_75000_titleiv_privateforprofit",parseFloat(row["avg_net_price_48001_75000_1213"])),
@@ -292,11 +318,11 @@ for row in data:
         ("avg_net_price_110001_titleiv_privateforprofit",parseFloat(row["avg_net_price_110001_1213"])),
     ]
 
-    institution["yearly_data"] = OrderedDict(years_list_24_25),OrderedDict(years_list_23_24),OrderedDict(years_list_22_23),OrderedDict(years_list_21_22),OrderedDict(years_list_20_21),OrderedDict(years_list_19_20),OrderedDict(years_list_18_19),OrderedDict(years_list_17_18),OrderedDict(years_list_16_17),OrderedDict(years_list_15_16),OrderedDict(years_list_14_15),OrderedDict(years_list_13_14),OrderedDict(years_list_12_13)
+    institution["yearly_data"] = OrderedDict(years_list_25_26),OrderedDict(years_list_24_25),OrderedDict(years_list_23_24),OrderedDict(years_list_22_23),OrderedDict(years_list_21_22),OrderedDict(years_list_20_21),OrderedDict(years_list_19_20),OrderedDict(years_list_18_19),OrderedDict(years_list_17_18),OrderedDict(years_list_16_17),OrderedDict(years_list_15_16),OrderedDict(years_list_14_15),OrderedDict(years_list_13_14),OrderedDict(years_list_12_13)
 
     # Dump the contents of each row
     data_file = json.dumps(institution, indent=4, separators=(',', ': '))
 
     # write a JSON file for each one named UnitID.json
-    outfile = open("school-data-2024-04/{}.json".format(row["UnitID"]),"w")
+    outfile = open("school-data-2025/{}.json".format(row["UnitID"]), "w")
     outfile.write(data_file)

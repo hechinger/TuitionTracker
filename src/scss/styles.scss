@@ -1587,6 +1587,7 @@ body {
   color:white;
   font-size:1.6rem;
 }
+
 .section-header-sub {
   text-transform: lowercase;
   font-weight:200 !important;
@@ -2514,6 +2515,9 @@ header.branding {
   width:600px!important;
   margin:0 auto!important;
   height:280px;
+}
+.how-we-know-text.oostate-visible {
+  top:850px;
 }
 .how-we-know-text.how-we-know-visible {
   visibility:visible;
@@ -10113,7 +10117,7 @@ input:-webkit-autofill:focus {
 }
 .promo-content-bdr-es:after,
 .promo-content-bdr-es--reverse:after {
-  top: 55px;
+  top: 65px;
 }
 @media (min-width: 750px) {
   /* line 66, ../scss/components/_promo.scss */
